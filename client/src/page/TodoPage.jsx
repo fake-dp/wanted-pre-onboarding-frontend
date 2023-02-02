@@ -1,7 +1,8 @@
 import React from "react";
+import TodoForm from "../components/todo/TodoForm";
 
 function TodoPage(props) {
-  return <div>todopage</div>;
+  return <TodoForm />;
 }
 
 export default TodoPage;

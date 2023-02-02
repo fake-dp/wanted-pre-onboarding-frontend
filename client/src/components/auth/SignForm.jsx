@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 function SignForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [signAcount, setSignAcount] = useState(true);
   const [passEmail, setPassEmail] = useState(false);
   const [passPwd, setPassPwd] = useState(false);
 

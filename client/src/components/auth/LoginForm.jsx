@@ -24,7 +24,7 @@ function LoginForm(props) {
     try {
       let data;
       data = await authAPI.signIn({ email, password });
-      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("access_token", data.access_token);
       console.log("fuck", data);
       navigate("/todo");
     } catch (error) {
