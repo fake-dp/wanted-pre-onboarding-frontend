@@ -27,7 +27,7 @@ function TodoForm(props) {
     setTodoContent(value);
   };
 
-  // todo 생성
+  // todo 생성 test
   const createTodoList = async (event) => {
     event.preventDefault();
     const data = await todoAPI.createTodo(todoContent);
@@ -41,8 +41,20 @@ function TodoForm(props) {
     setTodos(data);
   };
 
-  console.log(todos);
+  // todo 삭제 test
+  const deleteTodoList = async (id) => {
+    await todoAPI.deleteTodo(id);
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
 
+  // todo 수정 test
+  const updateTodoList = async (id, isCompleted) => {
+    const data = await todoAPI.updateTodo(id, "변경test", isCompleted);
+    console.log("ed", data);
+    setTodos(todos.map((todo) => (todo.id === id ? data : todo)));
+  };
+
+  console.log(todos);
   return (
     <>
       <div>
@@ -53,6 +65,29 @@ function TodoForm(props) {
         <button onClick={createTodoList} data-testid="new-todo-add-button">
           추가
         </button>
+        {todos.map((e) => (
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>{e.todo}</span>
+            </label>
+
+            <>
+              <button
+                onClick={() => updateTodoList(e.id, e.isCompleted)}
+                data-testid="modify-button"
+              >
+                수정
+              </button>
+              <button
+                onClick={() => deleteTodoList(e.id)}
+                data-testid="delete-button"
+              >
+                삭제
+              </button>
+            </>
+          </li>
+        ))}
       </div>
     </>
   );
