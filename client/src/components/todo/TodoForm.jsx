@@ -31,13 +31,13 @@ function TodoForm(props) {
   const createTodoList = async (event) => {
     event.preventDefault();
     const data = await todoAPI.createTodo(todoContent);
-    console.log("create", data);
+    // console.log("create", data);
     setTodos([...todos, data]);
   };
 
   const getTodoList = async () => {
     const data = await todoAPI.getTodoList();
-    console.log("get", data);
+    // console.log("get", data);
     setTodos(data);
   };
 
@@ -50,11 +50,11 @@ function TodoForm(props) {
   // todo 수정 test
   const updateTodoList = async (id, isCompleted) => {
     const data = await todoAPI.updateTodo(id, "변경test", isCompleted);
-    console.log("ed", data);
+    // console.log("ed", data);
     setTodos(todos.map((todo) => (todo.id === id ? data : todo)));
   };
 
-  console.log(todos);
+  //   console.log(todos);
   return (
     <>
       <div>
