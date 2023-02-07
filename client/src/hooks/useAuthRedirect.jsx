@@ -12,7 +12,10 @@ const useAuthRedirect = () => {
     const accessToken = localStorage.getItem("access_token");
     if (accessToken) {
       navigate("/todo");
-    } else if (accessToken === null && window.location.pathname === "/todo") {
+    } else if (
+      (accessToken === null && window.location.pathname === "/todo") ||
+      window.location.pathname === "/"
+    ) {
       navigate("/signin");
     }
   };

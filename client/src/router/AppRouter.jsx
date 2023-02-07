@@ -10,6 +10,7 @@ function AppRouter(props) {
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/todo" element={<TodoPage />} />
+      <Route path="/" element={<TodoPage />} />
     </Routes>
   );
 }

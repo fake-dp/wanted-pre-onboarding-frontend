@@ -1,31 +1,20 @@
 import React from "react";
 import authAPI from "../../api/auth";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function LoginForm(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import useAuthInput from "../../hooks/useAuthInput";
+
+function LoginForm() {
+  const { onChange, email, password } = useAuthInput();
   const navigate = useNavigate();
 
-  const textOnChange = (event) => {
-    const {
-      target: { name, value },
-    } = event;
-    if (name === "email") {
-      setEmail(value);
-    } else if (name === "password") {
-      setPassword(value);
-    }
-  };
-
-  const authSign = async (event) => {
-    event.preventDefault();
+  const authSign = async (e) => {
+    e.preventDefault();
     try {
       let data;
       data = await authAPI.signIn({ email, password });
       localStorage.setItem("access_token", data.access_token);
-      console.log("fuck", data);
       navigate("/todo");
     } catch (error) {
       console.log(error);
@@ -40,7 +29,7 @@ function LoginForm(props) {
         placeholder="Email"
         required
         value={email}
-        onChange={textOnChange}
+        onChange={onChange}
         data-testid="email-input"
       />
       <input
@@ -49,12 +38,16 @@ function LoginForm(props) {
         placeholder="Password"
         required
         value={password}
-        onChange={textOnChange}
+        onChange={onChange}
         data-testid="password-input"
       />
       <button onClick={authSign} data-testid="signin-button">
         로그인
       </button>
+
+      <div>
+        <Link to="/signup">회원가입</Link>
+      </div>
     </>
   );
 }
