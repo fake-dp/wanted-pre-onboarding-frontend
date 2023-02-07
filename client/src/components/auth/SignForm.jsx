@@ -1,40 +1,15 @@
 import React from "react";
-import { useState } from "react";
 import authAPI from "../../api/auth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import { AiFillCheckCircle } from "react-icons/ai";
+import { AiFillCloseCircle } from "react-icons/ai";
 import useAuthInput from "../../hooks/useAuthInput";
 
-function SignForm(props) {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [passEmail, setPassEmail] = useState(false);
-  // const [passPwd, setPassPwd] = useState(false);
-
-  const { onChange, email, password } = useAuthInput();
+function SignForm() {
+  const { onChangeSignUp, email, password, passEmail, passPwd } =
+    useAuthInput();
   const navigate = useNavigate();
-
-  // const textOnChange = (event) => {
-  //   const {
-  //     target: { name, value },
-  //   } = event;
-  //   if (name === "email") {
-  //     setEmail(value);
-  //     if (value.includes("@") && value.includes(".")) {
-  //       setPassEmail(true);
-  //     } else {
-  //       setPassEmail(false);
-  //     }
-  //   } else if (name === "password") {
-  //     setPassword(value);
-  //     if (value.length >= 8) {
-  //       setPassPwd(true);
-  //     } else {
-  //       setPassPwd(false);
-  //     }
-  //   }
-  // };
 
   const authSign = async (e) => {
     e.preventDefault();
@@ -44,7 +19,7 @@ function SignForm(props) {
       console.log(data);
       navigate("/signin");
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.message[0]);
     }
   };
 
@@ -56,19 +31,20 @@ function SignForm(props) {
         placeholder="Email"
         required
         value={email}
-        onChange={onChange}
+        onChange={onChangeSignUp}
         data-testid="email-input"
       />
-
+      {passEmail ? <AiFillCheckCircle /> : <AiFillCloseCircle />}
       <input
         name="password"
         type="password"
         placeholder="Password"
         required
         value={password}
-        onChange={onChange}
+        onChange={onChangeSignUp}
         data-testid="password-input"
       />
+      {passPwd ? <AiFillCheckCircle /> : <AiFillCloseCircle />}
       <button onClick={authSign} data-testid="signup-button">
         회원가입
       </button>

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import useAuthInput from "../../hooks/useAuthInput";
 
 function LoginForm() {
-  const { onChange, email, password } = useAuthInput();
+  const { onChangeSignIn, email, password } = useAuthInput();
   const navigate = useNavigate();
 
   const authSign = async (e) => {
@@ -29,7 +29,7 @@ function LoginForm() {
         placeholder="Email"
         required
         value={email}
-        onChange={onChange}
+        onChange={onChangeSignIn}
         data-testid="email-input"
       />
       <input
@@ -38,7 +38,7 @@ function LoginForm() {
         placeholder="Password"
         required
         value={password}
-        onChange={onChange}
+        onChange={onChangeSignIn}
         data-testid="password-input"
       />
       <button onClick={authSign} data-testid="signin-button">
