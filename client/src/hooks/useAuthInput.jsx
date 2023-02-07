@@ -33,14 +33,12 @@ const useAuthInput = () => {
       });
 
       if (name === "email") {
-        // setEmail(value);
         if (value.includes("@") && value.includes(".")) {
           setPassEmail(true);
         } else {
           setPassEmail(false);
         }
       } else if (name === "password") {
-        // setPassword(value);
         if (value.length >= 8) {
           setPassPwd(true);
         } else {
@@ -50,8 +48,6 @@ const useAuthInput = () => {
     },
     [inputs]
   );
-
-  console.log(passEmail, passPwd);
 
   return {
     onChangeSignIn,
