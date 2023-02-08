@@ -15,7 +15,7 @@ import {
 } from "../../styles/auth/authStyled.styled";
 
 function SignForm() {
-  const { onChangeSignUp, email, password, passEmail, passPwd } =
+  const { onChangeAuthInput, email, password, passEmail, passPwd } =
     useAuthInput();
   const navigate = useNavigate();
 
@@ -41,10 +41,12 @@ function SignForm() {
           placeholder="Email"
           required
           value={email}
-          onChange={onChangeSignUp}
+          onChange={onChangeAuthInput}
           data-testid="email-input"
         />
-        <span>{passEmail ? <AiFillCheckCircle /> : <AiFillCloseCircle />}</span>
+        <span className={passEmail ? "active" : undefined}>
+          {passEmail ? <AiFillCheckCircle /> : <AiFillCloseCircle />}
+        </span>
       </AuthInputFlex>
 
       <AuthInputFlex>
@@ -54,13 +56,21 @@ function SignForm() {
           placeholder="Password"
           required
           value={password}
-          onChange={onChangeSignUp}
+          onChange={onChangeAuthInput}
           data-testid="password-input"
         />
-        <span>{passPwd ? <AiFillCheckCircle /> : <AiFillCloseCircle />}</span>
+        <span className={passPwd ? "active" : undefined}>
+          {passPwd ? <AiFillCheckCircle /> : <AiFillCloseCircle />}
+        </span>
       </AuthInputFlex>
 
-      <SubmitButton onClick={authSign} data-testid="signup-button">
+      <SubmitButton
+        className={passEmail && passPwd ? "active" : undefined}
+        type="submit"
+        disabled={!passEmail || !passPwd ? "disabled" : undefined}
+        onClick={authSign}
+        data-testid="signup-button"
+      >
         회원가입
       </SubmitButton>
       <LinkText>

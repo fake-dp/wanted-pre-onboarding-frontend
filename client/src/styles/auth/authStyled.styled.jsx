@@ -5,7 +5,7 @@ export const AuthWrapper = styled.div`
   flex-direction: column;
   background: #192a56;
   width: 450px;
-  height: 500px;
+  height: 470px;
   border-radius: 15px;
   align-items: center;
   justify-content: center;
@@ -27,8 +27,12 @@ export const AuthInputFlex = styled.div`
     position: absolute;
     margin-left: 20px;
     right: 20px;
+    color: #dcdde1;
     > svg {
       font-size: 25px;
+    }
+    &.active {
+      color: #00b894;
     }
   }
 `;
@@ -50,10 +54,10 @@ export const AuthInput = styled.input`
 `;
 
 export const SubmitButton = styled.button`
-  background-color: #fff;
+  background-color: #f0f0f0;
   border: none;
   border-radius: 35px;
-  color: #000000ff;
+  color: grey;
   font-family: inherit;
   font-size: inherit;
   height: 45px;
@@ -62,7 +66,14 @@ export const SubmitButton = styled.button`
   padding-inline-start: 52px;
   width: 350px;
   margin-top: 10px;
-  cursor: pointer;
+  &.active {
+    cursor: pointer;
+    color: #fff;
+    background-color: #487eb0;
+    &:hover {
+      transform: scale(0.99);
+    }
+  }
 `;
 
 export const LinkText = styled.p`
@@ -75,5 +86,8 @@ export const LinkText = styled.p`
     color: #fff;
     text-decoration: none;
     outline: 0;
+  }
+  &:active {
+    transform: scale(0.99);
   }
 `;

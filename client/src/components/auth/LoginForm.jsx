@@ -10,10 +10,12 @@ import {
   AuthInput,
   AuthInputFlex,
   SubmitButton,
+  LinkText,
 } from "../../styles/auth/authStyled.styled";
 
 function LoginForm() {
-  const { onChangeSignIn, email, password } = useAuthInput();
+  const { onChangeAuthInput, email, password, passEmail, passPwd } =
+    useAuthInput();
   const navigate = useNavigate();
 
   const authSign = async (e) => {
@@ -24,7 +26,7 @@ function LoginForm() {
       localStorage.setItem("access_token", data.access_token);
       navigate("/todo");
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.message);
     }
   };
 
@@ -38,7 +40,7 @@ function LoginForm() {
           placeholder="Email"
           required
           value={email}
-          onChange={onChangeSignIn}
+          onChange={onChangeAuthInput}
           data-testid="email-input"
         />
       </AuthInputFlex>
@@ -49,17 +51,23 @@ function LoginForm() {
           placeholder="Password"
           required
           value={password}
-          onChange={onChangeSignIn}
+          onChange={onChangeAuthInput}
           data-testid="password-input"
         />
       </AuthInputFlex>
-      <SubmitButton onClick={authSign} data-testid="signin-button">
+      <SubmitButton
+        className={passEmail && passPwd ? "active" : undefined}
+        type="submit"
+        disabled={!passEmail || !passPwd ? "disabled" : undefined}
+        onClick={authSign}
+        data-testid="signin-button"
+      >
         로그인
       </SubmitButton>
 
-      <div>
+      <LinkText>
         <Link to="/signup">회원가입</Link>
-      </div>
+      </LinkText>
     </AuthWrapper>
   );
 }

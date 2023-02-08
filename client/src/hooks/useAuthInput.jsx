@@ -8,22 +8,9 @@ const useAuthInput = () => {
 
   const [passEmail, setPassEmail] = useState(false);
   const [passPwd, setPassPwd] = useState(false);
-
   const { email, password } = inputs;
 
-  const onChangeSignIn = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-
-      setInputs({
-        ...inputs,
-        [name]: value,
-      });
-    },
-    [inputs]
-  );
-
-  const onChangeSignUp = useCallback(
+  const onChangeAuthInput = useCallback(
     (e) => {
       const { name, value } = e.target;
 
@@ -50,8 +37,7 @@ const useAuthInput = () => {
   );
 
   return {
-    onChangeSignIn,
-    onChangeSignUp,
+    onChangeAuthInput,
     email,
     password,
     passEmail,
