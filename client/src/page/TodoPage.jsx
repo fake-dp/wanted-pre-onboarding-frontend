@@ -4,7 +4,7 @@ import CreateTodoForm from "../components/todo/CreateTodoForm";
 import TodoHeader from "../components/todo/TodoHeader";
 import TodoList from "../components/todo/TodoList";
 import useAuthRedirect from "../hooks/useAuthRedirect";
-
+import { TodoWrapper } from "../styles/todo/todoStyled.styled";
 function TodoPage() {
   useAuthRedirect();
   const [todos, setTodos] = useState([]);
@@ -19,11 +19,11 @@ function TodoPage() {
   };
 
   return (
-    <>
+    <TodoWrapper>
       <TodoHeader />
       <CreateTodoForm todos={todos} setTodos={setTodos} />
       <TodoList todos={todos} setTodos={setTodos} />
-    </>
+    </TodoWrapper>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import todoAPI from "../../api/todo";
-
+import { CreateTodoFormWrapper } from "../../styles/todo/todoStyled.styled";
 function CreateTodoForm({ todos, setTodos }) {
   const [todoText, setTodoText] = useState("");
   const inputRef = useRef();
@@ -17,9 +17,9 @@ function CreateTodoForm({ todos, setTodos }) {
     event.preventDefault();
     if (!todoText) return;
     const data = await todoAPI.createTodo(todoText);
-    console.log(inputRef.current.value);
     setTodos([...todos, data]);
     inputRef.current.value = "";
+    setTodoText("");
   };
 
   const onKeyDown = (event) => {
@@ -29,7 +29,7 @@ function CreateTodoForm({ todos, setTodos }) {
   };
 
   return (
-    <div>
+    <CreateTodoFormWrapper>
       <input
         ref={inputRef}
         onChange={textOnChange}
@@ -39,7 +39,7 @@ function CreateTodoForm({ todos, setTodos }) {
       <button onClick={createTodoList} data-testid="new-todo-add-button">
         추가
       </button>
-    </div>
+    </CreateTodoFormWrapper>
   );
 }
 
