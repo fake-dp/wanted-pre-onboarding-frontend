@@ -1,16 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import todoAPI from "../../api/todo";
+import { TodoItemWrapper } from "../../styles/todo/todoStyled.styled";
 
 function TodoItem({ todos, setTodos, item }) {
   const [modifyToggle, setModifyToggle] = useState(false);
-  const [todoUpdateText, setTodoUpdateText] = useState("");
+  const [content, setContent] = useState(item);
 
   const textOnChange = (event) => {
     event.preventDefault();
-    const {
-      target: { value },
-    } = event;
-    setTodoUpdateText(value);
+    setContent({ ...content, todo: event.target.value });
+  };
+
+  const updateTodoList = useCallback(
+    (content) => {
+      todoAPI
+        .updateTodo(content.id, content.todo, content.isCompleted)
+        .then((res) => {
+          setTodos(todos.map((todo) => (todo.id === content.id ? res : todo)));
+        })
+        .catch((err) => {
+          throw new Error(err);
+        });
+    },
+    [item, content]
+  );
+
+  const handleCompleteBtnClick = () => {
+    if (!content.todo) {
+      return;
+    }
+    updateTodoList(content);
+    setModifyToggle(false);
+  };
+
+  const handleCancelBtnClick = () => {
+    setContent({ ...content, todo: item.todo });
+    setModifyToggle(false);
+  };
+
+  const onCheckClick = () => {
+    updateTodoList({ ...content, isCompleted: !item.isCompleted });
+    setContent({ ...content, isCompleted: !item.isCompleted });
   };
 
   const deleteTodoList = async (id) => {
@@ -18,36 +48,40 @@ function TodoItem({ todos, setTodos, item }) {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  const updateTodoList = async (id, isCompleted) => {
-    setModifyToggle(false);
-    const data = await todoAPI.updateTodo(id, todoUpdateText, isCompleted);
-    setTodos(todos.map((todo) => (todo.id === id ? data : todo)));
+  const onKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      handleCompleteBtnClick();
+    }
   };
 
   return (
-    <div>
+    <TodoItemWrapper>
       {modifyToggle ? (
         <li>
-          <input onChange={textOnChange} />
-
-          <button
-            onClick={() => updateTodoList(item.id, item.isCompleted)}
-            data-testid="modify-button"
-          >
-            완료
+          <input
+            data-testid="modify-input"
+            placeholder={content.todo}
+            onChange={textOnChange}
+            onKeyDown={onKeyDown}
+          />
+          <button onClick={handleCompleteBtnClick} data-testid="submit-button">
+            제출
           </button>
-          <button
-            onClick={() => deleteTodoList(item.id)}
-            data-testid="delete-button"
-          >
-            삭제
+          <button onClick={handleCancelBtnClick} data-testid="cancel-button">
+            취소
           </button>
         </li>
       ) : (
         <li>
           <label>
-            <input type="checkbox" />
-            <span>{item.todo}</span>
+            <input
+              onClick={onCheckClick}
+              type="checkbox"
+              defaultChecked={content.isCompleted}
+            />
+            <span className={content.isCompleted ? "check" : ""}>
+              {content.todo}
+            </span>
           </label>
 
           <button
@@ -57,14 +91,14 @@ function TodoItem({ todos, setTodos, item }) {
             수정
           </button>
           <button
-            onClick={() => deleteTodoList(item.id)}
+            onClick={() => deleteTodoList(content.id)}
             data-testid="delete-button"
           >
             삭제
           </button>
         </li>
       )}
-    </div>
+    </TodoItemWrapper>
   );
 }
 

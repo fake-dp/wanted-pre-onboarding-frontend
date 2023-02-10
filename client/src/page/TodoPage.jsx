@@ -15,6 +15,7 @@ function TodoPage() {
 
   const getTodoList = async () => {
     const data = await todoAPI.getTodoList();
+    console.log(data);
     setTodos(data);
   };
 

@@ -78,3 +78,89 @@ export const CreateTodoFormWrapper = styled.div`
     }
   }
 `;
+
+export const TodoListWrapper = styled.div`
+  background-color: #2d3436;
+  padding: 10px;
+  border-radius: 15px;
+  height: 600px;
+  overflow: auto;
+`;
+
+export const TodoItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: none;
+  border-radius: 15px;
+  color: #000000ff;
+  font-family: inherit;
+  font-size: inherit;
+  height: 45px;
+  margin: 10px;
+  outline: 0;
+  padding-inline-end: 44px;
+  padding-inline-start: 52px;
+  /* width: 520px; */
+  > li {
+    /* background: red; */
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    > input {
+      border: none;
+      height: 35px;
+      margin: 10px;
+      width: 66%;
+      &:focus {
+        outline: none;
+      }
+    }
+    > button:nth-child(2) {
+      position: absolute;
+      right: 70px;
+      cursor: pointer;
+      border: none;
+      box-sizing: border-box;
+      background-color: #0984e3;
+      color: #fff;
+      font-weight: 700;
+      border-radius: 15px;
+      font-family: inherit;
+      font-size: inherit;
+      height: 35px;
+      width: 55px;
+      &:active {
+        transform: scale(0.99);
+      }
+    }
+    > button:nth-child(3) {
+      position: absolute;
+      right: 0px;
+      cursor: pointer;
+      border: none;
+      box-sizing: border-box;
+      background-color: #e17055;
+      color: #fff;
+      font-weight: 700;
+      border-radius: 15px;
+      font-family: inherit;
+      font-size: inherit;
+      height: 35px;
+      width: 55px;
+      &:active {
+        transform: scale(0.99);
+      }
+    }
+    > label {
+      > span {
+        &.check {
+          text-decoration: line-through;
+        }
+      }
+    }
+  }
+`;
