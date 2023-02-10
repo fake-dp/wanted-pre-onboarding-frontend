@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, memo } from "react";
 import todoAPI from "../../api/todo";
 import { TodoItemWrapper } from "../../styles/todo/todoStyled.styled";
 
@@ -10,7 +10,7 @@ function TodoItem({ todos, setTodos, item }) {
     event.preventDefault();
     setContent({ ...content, todo: event.target.value });
   };
-
+  console.log(todos);
   const updateTodoList = useCallback(
     (content) => {
       todoAPI
@@ -102,4 +102,4 @@ function TodoItem({ todos, setTodos, item }) {
   );
 }
 
-export default TodoItem;
+export default memo(TodoItem);
