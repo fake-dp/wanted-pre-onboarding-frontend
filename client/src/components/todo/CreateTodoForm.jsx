@@ -17,9 +17,9 @@ function CreateTodoForm({ todos, setTodos }) {
     event.preventDefault();
     if (!todoText) return;
     const data = await todoAPI.createTodo(todoText);
+    console.log(inputRef.current.value);
     setTodos([...todos, data]);
     inputRef.current.value = "";
-    setTodoText("");
   };
 
   const onKeyDown = (event) => {
