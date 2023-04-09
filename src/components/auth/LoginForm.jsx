@@ -26,9 +26,7 @@ function LoginForm() {
       localStorage.setItem("access_token", data.access_token);
       navigate("/todo");
     } catch (error) {
-      // todo
-      // 나중에 모달처리
-      // console.log(error.response.data.message);
+      console.log(error.response.data.message);
     }
   };
 
